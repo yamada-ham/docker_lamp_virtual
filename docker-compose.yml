@@ -1,0 +1,39 @@
+version: “3.8”
+
+volumes:
+  mysql-data:
+
+services:
+  web:
+    build: ./web
+    ports:
+      # - 80:80
+      - 2080:80
+      - 2081:81
+      - 2082:82
+      - 2083:83
+      - 2084:84
+    restart: always
+    volumes:
+      - ./web/html:/var/www/html
+      - ./web/volumes/apache2:/etc/apache2
+      - ./web/volumes/php.ini:/usr/local/etc/php/php.ini
+    working_dir: /var/www/html
+    depends_on: 
+      - db
+
+  db:
+    build: ./db
+    ports:
+      # - 3306:3306
+      - 2306:3306
+    restart: always
+    platform: linux/x86_64
+    environment:
+      # MYSQL_USER: my_user
+      # MYSQL_PASSWORD: my_password
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+       - mysql-data:/var/lib/mysql
+    tty: true
+    
