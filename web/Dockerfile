@@ -12,6 +12,10 @@ mv phpMyAdmin-5.2.1-all-languages phpMyAdmin && \
 rm -rf phpMyAdmin-5.2.1-all-languages.tar.gz && \
 mv ./phpMyAdmin /usr/share/
 
+# Node.js 導入
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt install -y nodejs
+
 # 日本時間
 ENV TZ=Asia/Tokyo
 
